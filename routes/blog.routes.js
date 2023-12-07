@@ -23,21 +23,13 @@ blogRouter.post("/blogs", auth, async (req, res) => {
 // get
 blogRouter.get("/blogs", auth, async (req, res) => {
   
-//   const {asc} = req.query
-//   const query = {...req.query}
 
-//   delete query.asc
-
-//   if(asc){
-//     if(!query.date){
-//         query.date = {}
-//     }
-//     query.date.$lt = asc
-//   }
 
    try {
+    const {sort, order} = req.query
+    const sortorder = order == "asc" ? 1 : -1
 
-       const blog = await  blogModel.find()
+       const blog = await  blogModel.find().sort({[sort] : sortorder})
         
         res.status(200).send({ "msg":  blog})
 

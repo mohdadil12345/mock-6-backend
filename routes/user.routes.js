@@ -10,13 +10,13 @@ userRouter.post("/register", async (req, res) => {
 
     try {
 
-        const { username, email, password } = req.body
+        const { username, email, password, avatar } = req.body
 
         bcrypt.hash(password, 5, async (err, hash) => {
             if (err) {
                 res.status(200).send({ "error": err.message })
             } else {
-                const user = new UserModel({ username, email, password: hash })
+                const user = new UserModel({ username,avatar, email, password: hash })
                 await user.save()
                 res.status(200).send({ "msg": "a new user has been registered"})
             
